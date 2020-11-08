@@ -1,0 +1,21 @@
+.ticker {
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    background: red;
+    position: relative;
+    animation: mymove linear;
+    animation-duration: 60s;
+    animation-iteration-count: initial;
+}
+
+@keyframes mymove {
+    from {
+        transform: rotate(0deg);
+        transform-origin: bottom left;
+    }
+    to {
+        transform: rotate(360deg);
+        transform-origin: bottom left;
+    }
+}
