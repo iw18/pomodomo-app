@@ -1,21 +1,51 @@
-.ticker {
-    left: 50%;
-    width: 100px;
-    height: 100px;
-    background: red;
-    position: relative;
-    animation: mymove linear;
-    animation-duration: 60s;
-    animation-iteration-count: initial;
+.main {
+    display: grid;
+    position: fixed;
+    grid-template-columns: auto auto;
+    width: 100%;
+    height: 100%;
 }
 
-@keyframes mymove {
-    from {
-        transform: rotate(0deg);
-        transform-origin: bottom left;
-    }
-    to {
-        transform: rotate(360deg);
-        transform-origin: bottom left;
-    }
+.tomato {
+    margin: 0 auto;
+    display: block;
+    width: 50vh;
+    grid-column: 1/3;
 }
+
+.ticker-wrapper {
+    width: 10%;
+    height: 10%;
+    margin-top: -107px;
+    display: flex;
+    left: 45%;
+    top: 29%;
+    position: absolute;
+}
+
+.clock {
+    width: 300px;
+    height: 300px;
+    margin: 8% auto 0;
+    position: relative;
+  }
+  
+  .dot {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #ccc;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    position: absolute;
+    z-index: 10;
+  }
+
+.pausedClock {
+    
+}
+
+

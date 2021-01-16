@@ -1,20 +1,30 @@
 import React, {useState, useEffect} from 'react'
+import './Timer.css';
 
-const Timer = (props) => {
+const Timer = ({studyTime, breakTime, play}) => {
     const [time, setTime] = useState({
-        hour: props.hour,
-        minute: props.minute, 
-        second: props.second
+        hour: studyTime.hour,
+        minute: studyTime.minute, 
+        second: studyTime.second
     })
 
     const [work, setWork] = useState(true)
 
+    useEffect(() => {
+        setTime(() => {
+            return {
+                hour: studyTime.hour,
+                minute: studyTime.minute,
+                second: studyTime.second
+            }
+        })
+    }, [studyTime])
+
     //set the time each second
     useEffect(() => {
-
         const timerId = setInterval(() => {
             setTime((prev) => {
-                if(!props.play){
+                if(!play){
                     return {
                         hour: prev.hour,
                         minute: prev.minute,
@@ -22,16 +32,17 @@ const Timer = (props) => {
                     }
                 }
                 if(time.hour === 0 && time.minute === 0 && time.second === 0){
+                    console.log(breakTime)
                     console.log("go to break")
                     setWork(!work)
                     return !work ? {
-                        hour: props.hour,
-                        minute: props.minute,
-                        second: props.second                
+                        hour: studyTime.hour,
+                        minute: studyTime.minute,
+                        second: studyTime.second                
                     } : {
-                        hour: 0,
-                        minute: 5,
-                        second: 0  
+                        hour: breakTime.hour,
+                        minute: breakTime.minute,
+                        second: breakTime.second  
                     }
                 } else {
                     let newSecond = prev.second > 0 ? prev.second-1 : 59
@@ -48,13 +59,13 @@ const Timer = (props) => {
         return () => {
             clearInterval(timerId)
         }
-    }, [time, setTime, props.play, props.hour, props.minute, props.second, work])
+    }, [time, setTime, studyTime, breakTime, play, work])
 
 
 
     return(
-        <div>
-            <h1>{time.hour.toString().padStart(2, '0')}:
+        <div className="timer">
+            <h1 className="timer-text">{time.hour.toString().padStart(2, '0')}:
             {time.minute.toString().padStart(2, '0')}:
             {time.second.toString().padStart(2, '0')}</h1>
         </div>
