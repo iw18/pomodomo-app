@@ -15,17 +15,32 @@ body, h1, h2, h3, h4, p {
     margin-left: 2vw;
 }
 
+.play-and-restart {
+    margin: 56vh auto 1%;
+    display: flex;
+}
+
+.restart {
+    height: 50px;
+    width: 50px;
+    line-height: 30px;
+    position: relative;
+    z-index: 0;
+    box-sizing: border-box;
+    display: inline-block;
+    overflow: hidden;
+}
+
 .o-play-btn {
     position: relative;
     background: transparent;
     border: none;
     outline: none;
-    margin: 57vh 0 auto;
 }
 
 .o-play-btn__icon {
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     line-height: 30px;
     position: relative;
     z-index: 0;

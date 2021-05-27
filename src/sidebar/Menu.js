@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import './Menu.css';
 
-const Menu = ({open, studyTime, setStudyTime, breakTime, setBreakTime}) => {
+const Menu = ({open, studyTime, setStudyTime, breakTime, setBreakTime, setTotalIntervals}) => {
 
     useEffect(() => {
         let menu = document.getElementById("menu")        
@@ -11,8 +11,6 @@ const Menu = ({open, studyTime, setStudyTime, breakTime, setBreakTime}) => {
             menu.style.transform = "translateX(100%)"
         }
     }, [open])
-
-
 
     const handleStudyInput = (event) => {
         console.log("handling input for."+event.target.id)
@@ -37,8 +35,6 @@ const Menu = ({open, studyTime, setStudyTime, breakTime, setBreakTime}) => {
                 }
             }
         })
-
-
     }
 
     const handleBreakInput = (event) => {
@@ -65,6 +61,14 @@ const Menu = ({open, studyTime, setStudyTime, breakTime, setBreakTime}) => {
         })
     }
 
+    // Set interval
+    const handleIntervalInput = (event) => {
+        setTotalIntervals(event.target.value)
+    }
+
+    // Study music
+
+    // Break music
 
     return(
         <div open={open} id="menu" className="menu">
@@ -98,7 +102,7 @@ const Menu = ({open, studyTime, setStudyTime, breakTime, setBreakTime}) => {
             <div className="descriptor">INTERVALS</div>
             <div className="description">
                 <form className="intervals">
-                    <input type="number" placeholder="4" className="intervals" id="intervals"></input>
+                    <input type="number" placeholder="4" className="intervals" id="intervals" onInput={handleIntervalInput}></input>
                 </form>
             </div>
             <div className="descriptor">BACKGROUND MUSIC</div>

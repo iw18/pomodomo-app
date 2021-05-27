@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import './Clock.css';
 import Tomato from './Tomato3.svg';
-import styled, { keyframes, props } from 'styled-components';
+import styled, { keyframes} from 'styled-components';
+import userEvent from '@testing-library/user-event';
 
 const mymove = keyframes`
     from {
@@ -14,9 +15,6 @@ const mymove = keyframes`
     }
 `;
 
-
-
-
 const SecondTick = styled.div`
     position: absolute;
     z-index: 6;
@@ -27,10 +25,9 @@ const SecondTick = styled.div`
     left: 50%;
     margin-left: -2px;
     border-radius: 50px;
-    transform-origin: 50% 105px;
     animation: ${mymove} linear;
-    animation-duration: 60s;
-    animation-iteration-count: ${props => props.minutes};
+    animation-duration: ${props => props.minutes};
+    animation-iteration-count: ${props => props.iterations};
     animation-play-state: ${props => props.playState ? 'running' : 'paused'};
 }
 `;
@@ -42,10 +39,9 @@ const MinuteTick = styled.div`
     height: 120px;
     background: gold;
     top: 26px;
-    lefT: 50%;
+    left: 50%;
     margin-left: -1px;
     border-radius: 50px;
-    transform-origin: 50% 125px;
     animation: ${mymove} linear;
     animation-duration: ${props => props.minutes};
     animation-iteration-count: 1;
@@ -53,10 +49,49 @@ const MinuteTick = styled.div`
 }
 `;
 
-//takes in some props that tell you what to start the timer at
-const Clock = ({studyTime, breakTime, play}) => {
-    let animationDurationInMinutes = (studyTime.minute * 60).toString() + "s"
-    console.log(animationDurationInMinutes)
+const Clock = (props) => {
+
+    const [minuteKey, setMinuteKey] = useState("0");
+    const [secondKey, setSecondKey] = useState("-1");
+
+    useEffect(() => {
+        if(props.restart == true) {
+            
+        }
+    }, [props.restart])
+
+    useEffect(() => {
+        var minKey = Math.random().toString();
+        var secKey = Math.random().toString();
+        setMinuteKey(minKey)
+        setSecondKey(secKey)
+    }, [props.work])
+
+    let animationDurationForMinuteTick = ""
+    let animationDurationForSecondTick = ""
+    let animationIterationForSecondTick = ""
+
+    // Break time
+    if(!props.work) {
+        animationDurationForMinuteTick = (props.breakTime.minute * 60).toString() + "s"
+        animationDurationForSecondTick = "60s"
+        animationIterationForSecondTick = (props.breakTime.minute).toString() + "s"
+
+        if(animationDurationForMinuteTick == "0s") {
+            animationDurationForSecondTick = (props.breakTime.second).toString() + "s"
+            animationIterationForSecondTick = 1
+        }
+    } else {
+        animationDurationForMinuteTick = (props.studyTime.minute * 60).toString() + "s"
+        animationDurationForSecondTick = "60s"
+        animationIterationForSecondTick = (props.studyTime.minute).toString() + "s"
+
+        // If the time is less than 1 minute, the minute tick should not move.
+        if(animationDurationForMinuteTick == "0s") {
+            animationDurationForSecondTick = (props.studyTime.second).toString() + "s"
+            animationIterationForSecondTick = 1
+        }
+    }
     
     return(
         <div>
@@ -64,8 +99,8 @@ const Clock = ({studyTime, breakTime, play}) => {
                 <div className="clock">
                     <div className="dot"></div>
                     <div>
-                        <MinuteTick minutes={animationDurationInMinutes} playState={play}></MinuteTick>
-                        <SecondTick minutes={studyTime.minute} className='second-tick' playState={play}></SecondTick>
+                        <MinuteTick key={minuteKey} minutes={animationDurationForMinuteTick} className='minute-tick' playState={props.play}></MinuteTick>
+                        <SecondTick key={secondKey} minutes={animationDurationForSecondTick} iterations={animationIterationForSecondTick} className='second-tick' playState={props.play}></SecondTick>
                     </div>
                 </div>
             </div>
@@ -73,8 +108,6 @@ const Clock = ({studyTime, breakTime, play}) => {
                 <img className="tomato" src={Tomato} alt="tomato"/>
             </div>
         </div>
-
-
     )
 }
 

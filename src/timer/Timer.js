@@ -1,14 +1,15 @@
 import React, {useState, useEffect} from 'react'
 import './Timer.css';
 
-const Timer = ({studyTime, breakTime, play}) => {
+const Timer = ({studyTime, breakTime, intervals, totalIntervals, setIntervals, play, handlePlayPause, work, setWork, parentCallback}) => {
+    
     const [time, setTime] = useState({
         hour: studyTime.hour,
         minute: studyTime.minute, 
         second: studyTime.second
     })
 
-    const [work, setWork] = useState(true)
+    const [workOrBreak, setWorkOrBreak] = useState(true);
 
     useEffect(() => {
         setTime(() => {
@@ -20,7 +21,6 @@ const Timer = ({studyTime, breakTime, play}) => {
         })
     }, [studyTime])
 
-    //set the time each second
     useEffect(() => {
         const timerId = setInterval(() => {
             setTime((prev) => {
@@ -31,11 +31,27 @@ const Timer = ({studyTime, breakTime, play}) => {
                         second: prev.second                
                     }
                 }
-                if(time.hour === 0 && time.minute === 0 && time.second === 0){
-                    console.log(breakTime)
-                    console.log("go to break")
-                    setWork(!work)
-                    return !work ? {
+
+                console.log(time)
+
+                // Time has finished
+                if(time.hour === 0 && time.minute == 0 && time.second === 0){
+                    setWork(!workOrBreak)
+                    setWorkOrBreak(!workOrBreak)
+                    console.log("Changing work" + workOrBreak)
+                    if(work == true) {
+                        setIntervals(intervals++)
+                        console.log("Intervals: " + intervals)
+                    }
+
+                    // Finished all the intervals!
+                    console.log("Intervals + " + intervals + "Total Intervals : " + totalIntervals)
+                    if(intervals > totalIntervals) {
+                        console.log("Finished all of the intervals")
+                        handlePlayPause(null)
+                        clearInterval()
+                    }
+                    return !setWorkOrBreak ? {
                         hour: studyTime.hour,
                         minute: studyTime.minute,
                         second: studyTime.second                
@@ -59,7 +75,7 @@ const Timer = ({studyTime, breakTime, play}) => {
         return () => {
             clearInterval(timerId)
         }
-    }, [time, setTime, studyTime, breakTime, play, work])
+    }, [time, setTime, studyTime, breakTime, play, setWorkOrBreak])
 
 
 
@@ -69,7 +85,6 @@ const Timer = ({studyTime, breakTime, play}) => {
             {time.minute.toString().padStart(2, '0')}:
             {time.second.toString().padStart(2, '0')}</h1>
         </div>
-
     )
 }
 
