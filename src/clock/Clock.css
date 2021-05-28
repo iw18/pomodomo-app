@@ -45,8 +45,12 @@
 }
 
 .interval-text {
-    margin: 2% auto;
-    font-size: 1.5em;
+  margin: 2% auto;
+  font-size: 1.5em;
+}
+
+.remove-animation {
+  animation: none !important;
 }
 
 

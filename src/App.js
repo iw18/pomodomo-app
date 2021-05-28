@@ -31,8 +31,14 @@ const App = () => {
    * Play/ Pause button handle click function 
    */
   const handlePlayPause = (e) => {
-      setPlay((prev) => !prev)
-      document.getElementsByClassName("o-play-btn")[0].classList.toggle('o-play-btn--playing')
+    // Set to the opposite (play -> pause and vv)
+    setPlay((prev) => !prev)
+    document.getElementsByClassName("o-play-btn")[0].classList.toggle('o-play-btn--playing')
+
+    // If restarted, then this needs to reset restart back to false
+    if(restart === true) {
+      setRestart(false)
+    }
   }
 
   /**
@@ -41,6 +47,9 @@ const App = () => {
   const handleRestart = (e) => {
       setRestart((restart) => {
         if(restart == false) {
+          // Set the play button to pause
+          setPlay(false)
+          document.getElementsByClassName("o-play-btn")[0].classList.toggle('o-play-btn--playing')
           return true
         }
       })

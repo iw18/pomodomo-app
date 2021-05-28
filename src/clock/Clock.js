@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import './Clock.css';
 import Tomato from './Tomato3.svg';
 import styled, { keyframes} from 'styled-components';
-import userEvent from '@testing-library/user-event';
 
 const mymove = keyframes`
     from {
@@ -25,7 +24,7 @@ const SecondTick = styled.div`
     left: 50%;
     margin-left: -2px;
     border-radius: 50px;
-    animation: ${mymove} linear;
+    animation: ${mymove};
     animation-duration: ${props => props.minutes};
     animation-iteration-count: ${props => props.iterations};
     animation-play-state: ${props => props.playState ? 'running' : 'paused'};
@@ -42,7 +41,7 @@ const MinuteTick = styled.div`
     left: 50%;
     margin-left: -1px;
     border-radius: 50px;
-    animation: ${mymove} linear;
+    animation: ${mymove};
     animation-duration: ${props => props.minutes};
     animation-iteration-count: 1;
     animation-play-state: ${props => props.playState ? 'running' : 'paused'};
@@ -55,12 +54,19 @@ const Clock = (props) => {
     const [secondKey, setSecondKey] = useState("-1");
 
     useEffect(() => {
-        if(props.restart == true) {
-            
+        // Restarting the clock hands back to the original position
+        if(props.restart === true) {
+            document.getElementById("minute").classList.add("remove-animation")
+            document.getElementById("second").classList.add("remove-animation")
+        } else {
+            document.getElementById("minute").classList.remove("remove-animation")
+            document.getElementById("second").classList.remove("remove-animation")
         }
+
     }, [props.restart])
 
     useEffect(() => {
+        // Change the keys of the hands (that way they re-render)
         var minKey = Math.random().toString();
         var secKey = Math.random().toString();
         setMinuteKey(minKey)
@@ -77,7 +83,7 @@ const Clock = (props) => {
         animationDurationForSecondTick = "60s"
         animationIterationForSecondTick = (props.breakTime.minute).toString() + "s"
 
-        if(animationDurationForMinuteTick == "0s") {
+        if(animationDurationForMinuteTick === "0s") {
             animationDurationForSecondTick = (props.breakTime.second).toString() + "s"
             animationIterationForSecondTick = 1
         }
@@ -87,7 +93,7 @@ const Clock = (props) => {
         animationIterationForSecondTick = (props.studyTime.minute).toString() + "s"
 
         // If the time is less than 1 minute, the minute tick should not move.
-        if(animationDurationForMinuteTick == "0s") {
+        if(animationDurationForMinuteTick === "0s") {
             animationDurationForSecondTick = (props.studyTime.second).toString() + "s"
             animationIterationForSecondTick = 1
         }
@@ -99,8 +105,8 @@ const Clock = (props) => {
                 <div className="clock">
                     <div className="dot"></div>
                     <div>
-                        <MinuteTick key={minuteKey} minutes={animationDurationForMinuteTick} className='minute-tick' playState={props.play}></MinuteTick>
-                        <SecondTick key={secondKey} minutes={animationDurationForSecondTick} iterations={animationIterationForSecondTick} className='second-tick' playState={props.play}></SecondTick>
+                        <MinuteTick id="minute" key={minuteKey} minutes={animationDurationForMinuteTick} className='minute-tick' playState={props.play}></MinuteTick>
+                        <SecondTick id="second" key={secondKey} minutes={animationDurationForSecondTick} iterations={animationIterationForSecondTick} className='second-tick' playState={props.play}></SecondTick>
                     </div>
                 </div>
             </div>
