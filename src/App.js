@@ -13,7 +13,8 @@ const App = () => {
   const [open, setOpen] = useState(false)
   const [work, setWork] = useState(true) // 0 = Study, 1 = Break, 2 = Refresh/Finished Intervals
   const [intervals, setIntervals] = useState(1)
-  const [totalIntervals, setTotalIntervals] = useState(4);
+  const [totalIntervals, setTotalIntervals] = useState(8)
+  const [finishedIntervals, setFinishedIntervals] = useState(false)
   const [restart, setRestart] = useState(false)
   const [studyTime, setStudyTime] = useState({
     hour: 0,
@@ -59,7 +60,29 @@ const App = () => {
    * Toggle the work hook depending on the Timer.
    */
   const callbackSetWork = (workBool) => {
+
+    console.log("Calling callbackSetwork")
+
+    // Change the work boolean to the opposite (play -> pause)
     setWork(workBool)
+
+    // Increase the interval
+    console.log("Intervals " + intervals)
+    setIntervals((prev) => prev + 1 - 1)
+
+    // If the interval is past the max, then refresh
+    console.log("Total intervals " + totalIntervals)
+    if(intervals > totalIntervals) {
+      setRestart((restart) => {
+        if(restart == false) {
+          // Set the play button to pause
+          setPlay(false)
+          document.getElementsByClassName("o-play-btn")[0].classList.toggle('o-play-btn--playing')
+          return true
+        }
+      })
+      console.log("Finished all intervals")
+    }
   }
 
   return (
@@ -89,17 +112,13 @@ const App = () => {
       </div>
       <Timer studyTime={studyTime} 
              breakTime={breakTime} 
-             intervals={intervals} 
-             totalIntervals={totalIntervals} 
-             setIntervals={setIntervals}
              play={play}
-             handlePlayPause={handlePlayPause}
              work={work} 
-             setWork={setWork} 
              parentCallback={callbackSetWork}
              restart={restart} />
       <IntervalText intervals={intervals}
-                    work={work}/>
+                    work={work}
+                    restart={restart}/>
     </div>
   )
 }

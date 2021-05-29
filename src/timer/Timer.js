@@ -1,30 +1,29 @@
 import React, {useState, useEffect} from 'react'
 import './Timer.css';
 
-const Timer = ({studyTime, breakTime, intervals, totalIntervals, setIntervals, play, handlePlayPause, work, setWork, parentCallback}) => {
+const Timer = (props) => {
     
     const [time, setTime] = useState({
-        hour: studyTime.hour,
-        minute: studyTime.minute, 
-        second: studyTime.second
+        hour: props.studyTime.hour,
+        minute: props.studyTime.minute, 
+        second: props.studyTime.second
     })
 
-    const [workOrBreak, setWorkOrBreak] = useState(true);
-
+    // Set the study time depending on user inputed time (in menu)
     useEffect(() => {
         setTime(() => {
             return {
-                hour: studyTime.hour,
-                minute: studyTime.minute,
-                second: studyTime.second
+                hour: props.studyTime.hour,
+                minute: props.studyTime.minute,
+                second: props.studyTime.second
             }
         })
-    }, [studyTime])
+    }, [props.studyTime, props.restart])
 
     useEffect(() => {
         const timerId = setInterval(() => {
             setTime((prev) => {
-                if(!play){
+                if(!props.play){
                     return {
                         hour: prev.hour,
                         minute: prev.minute,
@@ -32,33 +31,18 @@ const Timer = ({studyTime, breakTime, intervals, totalIntervals, setIntervals, p
                     }
                 }
 
-                console.log(time)
-
                 // Time has finished
                 if(time.hour === 0 && time.minute == 0 && time.second === 0){
-                    setWork(!workOrBreak)
-                    setWorkOrBreak(!workOrBreak)
-                    console.log("Changing work" + workOrBreak)
-                    if(work == true) {
-                        setIntervals(intervals++)
-                        console.log("Intervals: " + intervals)
-                    }
+                    props.parentCallback(!props.work)
 
-                    // Finished all the intervals!
-                    console.log("Intervals + " + intervals + "Total Intervals : " + totalIntervals)
-                    if(intervals > totalIntervals) {
-                        console.log("Finished all of the intervals")
-                        handlePlayPause(null)
-                        clearInterval()
-                    }
-                    return !setWorkOrBreak ? {
-                        hour: studyTime.hour,
-                        minute: studyTime.minute,
-                        second: studyTime.second                
+                    return (!props.work) ? {
+                        hour: props.studyTime.hour,
+                        minute: props.studyTime.minute,
+                        second: props.studyTime.second                
                     } : {
-                        hour: breakTime.hour,
-                        minute: breakTime.minute,
-                        second: breakTime.second  
+                        hour: props.breakTime.hour,
+                        minute: props.breakTime.minute,
+                        second: props.breakTime.second  
                     }
                 } else {
                     let newSecond = prev.second > 0 ? prev.second-1 : 59
@@ -75,7 +59,7 @@ const Timer = ({studyTime, breakTime, intervals, totalIntervals, setIntervals, p
         return () => {
             clearInterval(timerId)
         }
-    }, [time, setTime, studyTime, breakTime, play, setWorkOrBreak])
+    }, [time, setTime, props.studyTime, props.breakTime, props.play, props.work])
 
 
 

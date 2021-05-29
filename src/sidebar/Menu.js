@@ -63,7 +63,7 @@ const Menu = ({open, studyTime, setStudyTime, breakTime, setBreakTime, setTotalI
 
     // Set interval
     const handleIntervalInput = (event) => {
-        setTotalIntervals(event.target.value)
+        setTotalIntervals(event.target.value * 2)
     }
 
     // Study music
