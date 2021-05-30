@@ -24,8 +24,7 @@ const SecondTick = styled.div`
     left: 50%;
     margin-left: -2px;
     border-radius: 50px;
-    animation: ${mymove};
-    transition-timing-function: linear;
+    animation: ${mymove} linear;
     animation-duration: ${props => props.minutes};
     animation-iteration-count: ${props => props.iterations};
     animation-play-state: ${props => props.playState ? 'running' : 'paused'};
@@ -42,8 +41,7 @@ const MinuteTick = styled.div`
     left: 50%;
     margin-left: -1px;
     border-radius: 50px;
-    animation: ${mymove};
-    transition-timing-function: linear;
+    animation: ${mymove} linear;
     animation-duration: ${props => props.minutes};
     animation-iteration-count: 1;
     animation-play-state: ${props => props.playState ? 'running' : 'paused'};

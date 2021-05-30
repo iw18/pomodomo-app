@@ -18,7 +18,7 @@ const IntervalText = (props) => {
         if(props.work === false) {
             setText("Break Time")
         } else {
-            setText("Interval " + (props.intervals))
+            setText("Interval " + (Math.floor(props.intervals/2) + 1))
         }
     }, [props.work, props.intervals])
 

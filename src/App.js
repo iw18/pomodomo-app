@@ -66,22 +66,19 @@ const App = () => {
     // Change the work boolean to the opposite (play -> pause)
     setWork(workBool)
 
-    // Increase the interval
-    console.log("Intervals " + intervals)
-    setIntervals((prev) => prev + 1 - 1)
-
     // If the interval is past the max, then refresh
     console.log("Total intervals " + totalIntervals)
-    if(intervals > totalIntervals) {
-      setRestart((restart) => {
-        if(restart == false) {
-          // Set the play button to pause
-          setPlay(false)
-          document.getElementsByClassName("o-play-btn")[0].classList.toggle('o-play-btn--playing')
-          return true
-        }
-      })
-      console.log("Finished all intervals")
+    if(intervals === totalIntervals) {
+      document.getElementsByClassName("o-play-btn")[0].classList.toggle('o-play-btn--playing')
+      setPlay(false)
+      setRestart(true)
+      
+      // Reset all the intervals back to the beginning
+      setIntervals(1)
+    } else {
+      // Increase the interval
+      console.log("Intervals " + intervals)
+      setIntervals((interval) => interval + 1)
     }
   }
 
