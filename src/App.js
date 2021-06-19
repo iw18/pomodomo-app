@@ -1,4 +1,6 @@
 import React, {useState, useEffect} from 'react';
+import { ThemeProvider } from 'styled-components';
+import { lightTheme, darkTheme } from './styled-components/theme.js';
 import Timer from './timer/Timer.js'
 import Clock from './clock/Clock.js'
 import IntervalText from './clock/IntervalText.js'
@@ -26,6 +28,7 @@ const App = () => {
     minute: 5,
     second: 0
   })
+  const [theme, setTheme] = useState('light')
 
 
   /**
@@ -83,40 +86,44 @@ const App = () => {
   }
 
   return (
-    <div className="content">
-      <GlobalStyles></GlobalStyles>
-      <h1 className="title">POMODOMO</h1>
-      <Clock studyTime={studyTime} 
-             breakTime={breakTime} 
-             play={play} 
-             work={work}
-             restart={restart} />
-      <Toggle open={open} 
-              setOpen={setOpen}/>
-      <Menu open={open} 
-            studyTime={studyTime} 
-            setStudyTime={setStudyTime} 
-            breakTime={breakTime} 
-            setBreakTime={setBreakTime} 
-            setTotalIntervals={setTotalIntervals}/>
-      <div className="play-and-restart">
-          <button onClick={handlePlayPause} className="o-play-btn">
-            <i className="o-play-btn__icon">
-              <div className="o-play-btn__mask"></div>
-            </i>
-          </button>
-          <img className="restart" src={Restart} alt="Restart" onClick={handleRestart}/>
+    <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+      <div className="content">
+        <GlobalStyles></GlobalStyles>
+        <h1 className="title">POMODOMO</h1>
+        <Clock studyTime={studyTime} 
+              breakTime={breakTime} 
+              play={play} 
+              work={work}
+              restart={restart} />
+        <Toggle open={open} 
+                setOpen={setOpen}/>
+        <Menu open={open} 
+              studyTime={studyTime} 
+              setStudyTime={setStudyTime} 
+              breakTime={breakTime} 
+              setBreakTime={setBreakTime} 
+              setTotalIntervals={setTotalIntervals}
+              theme={theme}
+              setTheme={setTheme}/>
+        <div className="play-and-restart">
+            <button onClick={handlePlayPause} className="o-play-btn">
+              <i className="o-play-btn__icon">
+                <div className="o-play-btn__mask"></div>
+              </i>
+            </button>
+            <img className="restart" src={Restart} alt="Restart" onClick={handleRestart}/>
+        </div>
+        <Timer studyTime={studyTime} 
+              breakTime={breakTime} 
+              play={play}
+              work={work} 
+              parentCallback={callbackSetWork}
+              restart={restart} />
+        <IntervalText intervals={intervals}
+                      work={work}
+                      restart={restart}/>
       </div>
-      <Timer studyTime={studyTime} 
-             breakTime={breakTime} 
-             play={play}
-             work={work} 
-             parentCallback={callbackSetWork}
-             restart={restart} />
-      <IntervalText intervals={intervals}
-                    work={work}
-                    restart={restart}/>
-    </div>
+    </ThemeProvider>
   )
 }
 

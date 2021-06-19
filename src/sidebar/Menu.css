@@ -1,9 +1,14 @@
+:root {
+  --sidebar-width: 500px;
+}
+
 input{
   font-family: 'Heebo', sans-serif;
   border: none;
   width: 40px;
   font-size: 25px;
 }
+
 .menu {
   display: grid;
   flex-direction: column;
@@ -92,3 +97,45 @@ input:checked + .slider:before {
 .time-inputs {
   font-family: 'Heebo', sans-serif;
 }
+
+.dropdown-button {
+  background-color: transparent;
+  font-size: 21px;
+  border: none;
+  cursor: pointer;
+  border-bottom: 1px solid gray;
+  font-family: 'Heebo', sans-serif;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown-songs {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu on hover */
+.dropdown-songs:hover .dropdown-content {
+  display: block;
+}
+
