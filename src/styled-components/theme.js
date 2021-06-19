@@ -10,4 +10,5 @@ export const lightTheme = {
     text: '#FAFAFA',
     toggleBorder: '#6B8096',
     backgroundcolor: '#fff',
+    span: '#FFF'
   }

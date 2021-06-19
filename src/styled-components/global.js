@@ -5,6 +5,7 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
     padding: 0;
     overflow: hidden;
+    height: 100%;
   }
   *, *::after, *::before {
     box-sizing: border-box;

@@ -9,7 +9,7 @@ const Timer = (props) => {
         second: props.studyTime.second
     })
 
-    // Set the study time depending on user inputed time (in menu)
+    // Set the study time depending on user inputted time (in menu)
     useEffect(() => {
         setTime(() => {
             return {
@@ -33,8 +33,11 @@ const Timer = (props) => {
 
             // Time has finished
             else if(time.hour === 0 && time.minute == 0 && time.second === 0){
+
+                // Change from work -> break or break -> work
                 props.parentCallback(!props.work)
 
+                // Set the new time
                 newTime = (!props.work) ? {
                     hour: props.studyTime.hour,
                     minute: props.studyTime.minute,
@@ -44,6 +47,10 @@ const Timer = (props) => {
                     minute: props.breakTime.minute,
                     second: props.breakTime.second  
                 }
+
+                // Sound the timer
+                const audioDone = document.getElementById("audio-element")
+                audioDone.play()
             } else {
                 let newSecond = time.second > 0 ? time.second-1 : 59
                 let newMinute = time.second > 0 ? time.minute : time.minute-1
@@ -65,9 +72,14 @@ const Timer = (props) => {
 
     return(
         <div className="timer">
-            <h1 className="timer-text">{time.hour.toString().padStart(2, '0')}:
-            {time.minute.toString().padStart(2, '0')}:
-            {time.second.toString().padStart(2, '0')}</h1>
+            <h1 className="timer-text">
+                {time.hour.toString().padStart(2, '0')}:
+                {time.minute.toString().padStart(2, '0')}:
+                {time.second.toString().padStart(2, '0')}
+            </h1>
+            <audio id="audio-element">
+                <source src="https://assets.coderrocketfuel.com/pomodoro-times-up.mp3"/>
+            </audio>
         </div>
     )
 }

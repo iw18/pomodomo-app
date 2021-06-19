@@ -1,28 +1,25 @@
-.hamburger-icon{
-    position: absolute;
-    top: 3%;
-    left: 95%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    width: 2rem;
-    height: 2rem;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    z-index: 10;
-}
-.hamburger-icon:focus {
-    outline: none;
+
+#menu-toggler span:nth-child(even) {
+    left: 50%;
+    border-radius: 0px 9px 9px 0px;
 }
 
-.hamburger-line {
-    width: 2rem;
-    height: 0.25rem;
-    background-color: black;
-    border-radius: 10px;
-    transition: all 0.3s linear;
-    position: relative;
-    transform-origin: 1px;
-  }
+#menu-toggler span:nth-child(odd){
+    left: 0px;
+    border-radius: 9px 0px 0px 9px;
+}
+
+#menu-toggler.open .menu-toggler__line:nth-child(1) span:nth-child(1),
+#menu-toggler.open .menu-toggler__line:nth-child(3) span:nth-child(2){
+    transform: rotate(45deg);
+}
+
+#menu-toggler.open .menu-toggler__line:nth-child(1) span:nth-child(2),
+#menu-toggler.open .menu-toggler__line:nth-child(3) span:nth-child(1){
+    transform: rotate(-45deg);
+}
+
+#menu-toggler.open .menu-toggler__line:nth-child(2) span:nth-child(1),
+#menu-toggler.open .menu-toggler__line:nth-child(2) span:nth-child(2){
+    opacity: 0;
+}

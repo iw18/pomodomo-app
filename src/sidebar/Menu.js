@@ -77,62 +77,41 @@ const Menu = (props) => {
         props.setTotalIntervals(event.target.value * 2)
     }
 
-    // Study music
-
-    // Break music
-
     return(
         <aside className="menu-container"> 
             <div open={props.open} id="menu" className="menu">
                 <div className="descriptor">THEME</div>
                 <div>
                     <label className="switch" >
-                        <input type="checkbox" onClick={handleThemeToggle}></input>
-                        <span className="slider round"></span>
+                        <input type="checkbox" onClick={handleThemeToggle}/>
+                        <span className="slider round"/>
                     </label>
                 </div>
                 <div className="descriptor">STUDY TIME</div>
                 <div className="description">
                     <form className="time-inputs">
-                        <input placeholder="00" className="start-time" id="study-hours" onInput={handleStudyInput}></input>
+                        <input placeholder="00" className="start-time" id="study-hours" onInput={handleStudyInput}/>
                         <span>:</span>
-                        <input placeholder="25" className="start-time" id="study-minutes" onInput={handleStudyInput}></input>
+                        <input placeholder="25" className="start-time" id="study-minutes" onInput={handleStudyInput}/>
                         <span>:</span>
-                        <input placeholder="00" className="start-time" id="study-seconds" onInput={handleStudyInput}></input>
+                        <input placeholder="00" className="start-time" id="study-seconds" onInput={handleStudyInput}/>
                     </form>
                 </div>
                 <div className="descriptor">BREAK TIME</div>
                 <div className="description">
                     <form className="time-inputs">
-                        <input placeholder="00" className="start-time" id="break-hours" onInput={handleBreakInput}></input>
+                        <input placeholder="00" className="start-time" id="break-hours" onInput={handleBreakInput}/>
                         <span>:</span>
-                        <input placeholder="05" className="start-time" id="break-minutes" onInput={handleBreakInput}></input>
+                        <input placeholder="05" className="start-time" id="break-minutes" onInput={handleBreakInput}/>
                         <span>:</span>
-                        <input placeholder="00" className="start-time" id="break-seconds" onInput={handleBreakInput}></input>
+                        <input placeholder="00" className="start-time" id="break-seconds" onInput={handleBreakInput}/>
                     </form>
                 </div>
                 <div className="descriptor">INTERVALS</div>
                 <div className="description">
                     <form className="intervals">
-                        <input type="number" placeholder="4" className="intervals" id="intervals" onInput={handleIntervalInput}></input>
+                        <input type="number" placeholder="4" className="intervals" id="intervals" onInput={handleIntervalInput}/>
                     </form>
-                </div>
-                <div className="descriptor">BACKGROUND MUSIC</div>
-                <div className="dropdown-songs">
-                    <button className="dropdown-button">Select a Song</button>
-                    <div className="dropdown-content">
-                        <a href="#">None</a>
-                        <a href="#">Add Song</a>
-                    </div>
-                </div>
-                <div className="descriptor">BREAK MUSIC</div>
-                <div className="dropdown-songs">
-                    <button className="dropdown-button">Select a Song</button>
-                    <div className="dropdown-content">
-                        <a href="#">None</a>
-                        <a href="#">Default Beep</a>
-                        <a href="#">Add Song</a>
-                    </div>
                 </div>
             </div>   
         </aside>

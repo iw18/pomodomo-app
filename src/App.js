@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import { lightTheme, darkTheme } from './styled-components/theme.js';
 import Timer from './timer/Timer.js'
 import Clock from './clock/Clock.js'
@@ -9,6 +9,60 @@ import Menu from './sidebar/Menu.js'
 import GlobalStyles from './styled-components/global.js'
 import Restart from './images/replay.svg'
 import './App.css';
+
+const ButtonContainer = styled.div`
+  display: flex;
+  margin: 2% auto;
+`
+
+const PlayPauseButton = styled.button`
+  width: 25px;
+  border-style: solid;
+  background-color: ${props => {return props.theme === "dark" ? "#333" : "white"}};
+  transition: 100ms all ease;
+  will-change: border-width;
+  cursor: pointer;
+  
+  ${props => {
+    if(!props.play && props.theme === "dark") {
+        return`
+            height: 25px;
+            box-sizing: border-box;
+            border-width: 25px 0 25px 40px;
+            border-color: #333 #333 #333 white;
+        `
+    } else if(!props.play && props.theme === "light") {
+      return`
+            height: 25px;
+            box-sizing: border-box;
+            border-width: 25px 0 25px 40px;
+            border-color: white white white #202020;
+        `
+    }
+    else if(props.play && props.theme === "dark") {
+      return`
+          height: 54px;
+          border-color: white;
+          border-style: double;
+          border-width: 0px 0px 0px 37px;
+      `
+    }
+    else if(props.play && props.theme === "light") {
+      return`
+          height: 54px;
+          border-color: #202020;
+          border-style: double;
+          border-width: 0px 0px 0px 37px;
+      `
+    }
+  }}
+`;
+
+const ReplayButton = styled.img`
+    width: 60px;
+    filter: ${props => {return props.theme === "dark" ? "invert(1)" : ""}};
+`;
+
 
 const App = () => {
   const [play, setPlay] = useState(false)
@@ -37,7 +91,6 @@ const App = () => {
   const handlePlayPause = (e) => {
     // Set to the opposite (play -> pause and vv)
     setPlay((prev) => !prev)
-    document.getElementsByClassName("o-play-btn")[0].classList.toggle('o-play-btn--playing')
 
     // If restarted, then this needs to reset restart back to false
     if(restart === true) {
@@ -50,10 +103,9 @@ const App = () => {
    */
   const handleRestart = (e) => {
       setRestart((restart) => {
-        if(restart == false) {
+        if(restart === false) {
           // Set the play button to pause
           setPlay(false)
-          document.getElementsByClassName("o-play-btn")[0].classList.toggle('o-play-btn--playing')
           return true
         }
       })
@@ -88,7 +140,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
       <div className="content">
-        <GlobalStyles></GlobalStyles>
+        <GlobalStyles/>
         <h1 className="title">POMODOMO</h1>
         <Clock studyTime={studyTime} 
               breakTime={breakTime} 
@@ -96,7 +148,8 @@ const App = () => {
               work={work}
               restart={restart} />
         <Toggle open={open} 
-                setOpen={setOpen}/>
+                setOpen={setOpen}
+                theme={theme}/>
         <Menu open={open} 
               studyTime={studyTime} 
               setStudyTime={setStudyTime} 
@@ -105,14 +158,10 @@ const App = () => {
               setTotalIntervals={setTotalIntervals}
               theme={theme}
               setTheme={setTheme}/>
-        <div className="play-and-restart">
-            <button onClick={handlePlayPause} className="o-play-btn">
-              <i className="o-play-btn__icon">
-                <div className="o-play-btn__mask"></div>
-              </i>
-            </button>
-            <img className="restart" src={Restart} alt="Restart" onClick={handleRestart}/>
-        </div>
+        <ButtonContainer>
+          <PlayPauseButton play={play} theme={theme} onClick={handlePlayPause}/>
+          <ReplayButton theme={theme} src={Restart} onClick={handleRestart}/>
+        </ButtonContainer>
         <Timer studyTime={studyTime} 
               breakTime={breakTime} 
               play={play}
