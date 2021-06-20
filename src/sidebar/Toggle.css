@@ -1,3 +1,38 @@
+#menu-toggler {
+    width: 45px;
+    position: absolute;
+    top: 3%;
+    left: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 2rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 10;
+}
+
+.menu-toggler__line{
+    display: flex;
+}
+
+#menu-toggler span {
+    display: block;
+    width: 50%;
+    height: 5px;
+    margin-top: 5px;
+    transform: rotate(0deg);
+    transition: .25s ease-in-out;
+    background-color: black;
+}
+
+#menu-toggler.dark span{
+    background-color: white;
+}
+
+
 
 #menu-toggler span:nth-child(even) {
     left: 50%;
@@ -6,7 +41,7 @@
 
 #menu-toggler span:nth-child(odd){
     left: 0px;
-    border-radius: 9px 0px 0px 9px;
+    border-radius: 9px 0 0px 9px;
 }
 
 #menu-toggler.open .menu-toggler__line:nth-child(1) span:nth-child(1),

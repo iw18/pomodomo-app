@@ -18,9 +18,9 @@ const SecondTick = styled.div`
     position: absolute;
     z-index: 6;
     width: 4px;
-    height: 100px;
+    height: 70px;
     background: #666;
-    top: 46px;
+    top: 75px;
     left: 50%;
     margin-left: -2px;
     border-radius: 50px;
@@ -35,9 +35,9 @@ const MinuteTick = styled.div`
     position: absolute;
     z-index: 7;
     width: 5px;
-    height: 120px;
+    height: 100px;
     background: gold;
-    top: 26px;
+    top: 50px;
     left: 50%;
     margin-left: -1px;
     border-radius: 50px;
@@ -81,7 +81,7 @@ const Clock = (props) => {
     if(!props.work) {
         animationDurationForMinuteTick = (props.breakTime.minute * 60).toString() + "s"
         animationDurationForSecondTick = "60s"
-        animationIterationForSecondTick = (props.breakTime.minute).toString() + "s"
+        animationIterationForSecondTick = (props.breakTime.minute).toString()
 
         if(animationDurationForMinuteTick === "0s") {
             animationDurationForSecondTick = (props.breakTime.second).toString() + "s"
@@ -90,7 +90,7 @@ const Clock = (props) => {
     } else {
         animationDurationForMinuteTick = (props.studyTime.minute * 60).toString() + "s"
         animationDurationForSecondTick = "60s"
-        animationIterationForSecondTick = (props.studyTime.minute).toString() + "s"
+        animationIterationForSecondTick = (props.studyTime.minute).toString()
 
         // If the time is less than 1 minute, the minute tick should not move.
         if(animationDurationForMinuteTick === "0s") {

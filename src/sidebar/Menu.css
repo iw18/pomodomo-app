@@ -2,13 +2,6 @@
   --sidebar-width: 500px;
 }
 
-input{
-  font-family: 'Heebo', sans-serif;
-  border: none;
-  width: 40px;
-  font-size: 25px;
-}
-
 .menu {
   display: grid;
   flex-direction: column;

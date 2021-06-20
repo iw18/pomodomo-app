@@ -106,6 +106,7 @@ const App = () => {
         if(restart === false) {
           // Set the play button to pause
           setPlay(false)
+          setWork(true)
           return true
         }
       })
@@ -116,15 +117,12 @@ const App = () => {
    */
   const callbackSetWork = (workBool) => {
 
-    console.log("Calling callbackSetwork")
-
     // Change the work boolean to the opposite (play -> pause)
     setWork(workBool)
 
     // If the interval is past the max, then refresh
     console.log("Total intervals " + totalIntervals)
     if(intervals === totalIntervals) {
-      document.getElementsByClassName("o-play-btn")[0].classList.toggle('o-play-btn--playing')
       setPlay(false)
       setRestart(true)
       

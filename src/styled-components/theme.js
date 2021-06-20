@@ -9,6 +9,5 @@ export const lightTheme = {
     body: '#333',
     text: '#FAFAFA',
     toggleBorder: '#6B8096',
-    backgroundcolor: '#fff',
     span: '#FFF'
   }

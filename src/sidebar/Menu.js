@@ -1,5 +1,16 @@
 import React, {useState, useEffect} from 'react';
+import styled from 'styled-components';
 import './Menu.css';
+
+const TimeInput = styled.input`
+  font-family: 'Heebo', sans-serif;
+  border: none;
+  width: 40px;
+  font-size: 25px;
+  background-color: transparent;
+  color: ${props => {return props.theme === "dark" ? "white" : "black"}}
+`
+
 
 const Menu = (props) => {
 
@@ -90,27 +101,27 @@ const Menu = (props) => {
                 <div className="descriptor">STUDY TIME</div>
                 <div className="description">
                     <form className="time-inputs">
-                        <input placeholder="00" className="start-time" id="study-hours" onInput={handleStudyInput}/>
+                        <TimeInput theme={props.theme} placeholder="00" className="start-time" id="study-hours" onInput={handleStudyInput}/>
                         <span>:</span>
-                        <input placeholder="25" className="start-time" id="study-minutes" onInput={handleStudyInput}/>
+                        <TimeInput theme={props.theme} placeholder="25" className="start-time" id="study-minutes" onInput={handleStudyInput}/>
                         <span>:</span>
-                        <input placeholder="00" className="start-time" id="study-seconds" onInput={handleStudyInput}/>
+                        <TimeInput theme={props.theme} placeholder="00" className="start-time" id="study-seconds" onInput={handleStudyInput}/>
                     </form>
                 </div>
                 <div className="descriptor">BREAK TIME</div>
                 <div className="description">
                     <form className="time-inputs">
-                        <input placeholder="00" className="start-time" id="break-hours" onInput={handleBreakInput}/>
+                        <TimeInput theme={props.theme} placeholder="00" className="start-time" id="break-hours" onInput={handleBreakInput}/>
                         <span>:</span>
-                        <input placeholder="05" className="start-time" id="break-minutes" onInput={handleBreakInput}/>
+                        <TimeInput theme={props.theme} placeholder="05" className="start-time" id="break-minutes" onInput={handleBreakInput}/>
                         <span>:</span>
-                        <input placeholder="00" className="start-time" id="break-seconds" onInput={handleBreakInput}/>
+                        <TimeInput theme={props.theme} placeholder="00" className="start-time" id="break-seconds" onInput={handleBreakInput}/>
                     </form>
                 </div>
                 <div className="descriptor">INTERVALS</div>
                 <div className="description">
                     <form className="intervals">
-                        <input type="number" placeholder="4" className="intervals" id="intervals" onInput={handleIntervalInput}/>
+                        <TimeInput theme={props.theme} type="number" placeholder="4" className="intervals" id="intervals" onInput={handleIntervalInput}/>
                     </form>
                 </div>
             </div>   
