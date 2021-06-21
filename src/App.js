@@ -22,6 +22,7 @@ const PlayPauseButton = styled.button`
   transition: 100ms all ease;
   will-change: border-width;
   cursor: pointer;
+  outline: none;
   
   ${props => {
     if(!props.play && props.theme === "dark") {

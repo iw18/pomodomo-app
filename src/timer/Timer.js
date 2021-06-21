@@ -32,7 +32,7 @@ const Timer = (props) => {
             }
 
             // Time has finished
-            else if(time.hour === 0 && time.minute == 0 && time.second === 0){
+            else if(time.hour === 0 && (time.minute === 0 || time.minute === "0") && time.second === 0){
 
                 // Change from work -> break or break -> work
                 props.parentCallback(!props.work)
@@ -66,7 +66,7 @@ const Timer = (props) => {
         return () => {
             clearInterval(timerId)
         }
-    }, [time, setTime, props.studyTime, props.breakTime, props.play, props.work])
+    }, [time, setTime, props])
 
 
 

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components';
 import './Menu.css';
 
@@ -37,19 +37,19 @@ const Menu = (props) => {
     const handleStudyInput = (event) => {
         console.log("handling input for."+event.target.id)
         props.setStudyTime(() => {
-            if(event.target.id == "study-hours"){
+            if(event.target.id === "study-hours"){
                 return {
                     hour: event.target.value,
                     minute: props.studyTime.minute,
                     second: props.studyTime.second
                 }
-            } else if(event.target.id == "study-minutes"){
+            } else if(event.target.id === "study-minutes"){
                 return {
                     hour: props.studyTime.hour,
                     minute: event.target.value,
                     second: props.studyTime.second
                 }
-            } else if(event.target.id == "study-seconds"){
+            } else if(event.target.id === "study-seconds"){
                 return {
                     hour: props.studyTime.hour,
                     minute: props.studyTime.minute,
@@ -61,19 +61,19 @@ const Menu = (props) => {
 
     const handleBreakInput = (event) => {
         props.setBreakTime(() => {
-            if(event.target.id == "break-hours"){
+            if(event.target.id === "break-hours"){
                 return {
                     hour: event.target.value,
                     minute: props.breakTime.minute,
                     second: props.breakTime.second
                 }
-            } else if(event.target.id == "break-minutes"){
+            } else if(event.target.id === "break-minutes"){
                 return {
                     hour: props.breakTime.hour,
                     minute: event.target.value,
                     second: props.breakTime.second
                 }
-            } else if(event.target.id == "break-seconds"){
+            } else if(event.target.id === "break-seconds"){
                 return {
                     hour: props.breakTime.hour,
                     minute: props.breakTime.minute,
