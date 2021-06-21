@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { lightTheme, darkTheme } from './styled-components/theme.js';
 import Timer from './timer/Timer.js'
@@ -70,7 +70,6 @@ const App = () => {
   const [work, setWork] = useState(true) // 0 = Study, 1 = Break, 2 = Refresh/Finished Intervals
   const [intervals, setIntervals] = useState(1)
   const [totalIntervals, setTotalIntervals] = useState(8)
-  const [finishedIntervals, setFinishedIntervals] = useState(false)
   const [restart, setRestart] = useState(false)
   const [studyTime, setStudyTime] = useState({
     hour: 0,
