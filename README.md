@@ -1,4 +1,4 @@
-## POMODOMO ##
+## POMODOMO 🍅
 
 A simple minimalist productivity timer, aka. pomodoro, built using React.  
 
